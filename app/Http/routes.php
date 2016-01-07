@@ -12,11 +12,22 @@
 */
 
 
-
-
+use App\CronJob;
+use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/', 'HomeController@index');
+
+
+    Route::any('/ping/{name}', 'PingController@store');
+
+    Route::get('/pings', 'PingController@index');
+
+
+    Route::get('/cron', 'CronJobsController@index');
+    Route::post('/cron', 'CronJobsController@store');
+    Route::delete('/cron/{id}', 'CronJobsController@destroy');
+
 });
