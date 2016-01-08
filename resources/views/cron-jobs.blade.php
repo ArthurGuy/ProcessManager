@@ -2,6 +2,9 @@
 
 @section('content')
 	<div class="container-fluid">
+
+		<h1>Cron Jobs</h1>
+
 		<div class="col-sm-12">
 
 			<div class="card">

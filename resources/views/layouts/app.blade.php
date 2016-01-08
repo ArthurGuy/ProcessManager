@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Vestd Manager</title>
+    <title>Process Manager</title>
 
     <!-- Styles -->
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
 
 </head>
-<body id="app-layout">
+<body id="app">
     <nav class="navbar navbar-full navbar-dark bg-primary m-b-1">
 
         <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header">
@@ -19,13 +19,14 @@
         </button>
         <div class="collapse navbar-toggleable-xs" id="navbar-header">
             <a class="navbar-brand" href="{{ url('/') }}">
-                Vestd Manager
+                Process Manager
             </a>
 
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/cron') }}">Cron Jobs</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/pings') }}">Pings</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->

@@ -13,9 +13,23 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->email,
-        'password' => bcrypt(str_random(10)),
+        'name'           => $faker->name,
+        'email'          => $faker->email,
+        'password'       => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Ping::class, function (Faker\Generator $faker) {
+    $env = $faker->randomElement(['production', 'demo', 'staging', 'local']);
+    return [
+        'name'            => $faker->slug(2) . '-' . $env,
+        'description'     => $faker->sentence(5),
+        'tags'            => $faker->word . ', ' . $env,
+        'frequency'       => $faker->randomElement(['day', 'hour', 'minute']),
+        'frequency_value' => $faker->numberBetween(1, 10),
+        'active'          => $faker->boolean(80),
+        'error'           => $faker->boolean(20),
+        'last_ping'       => $faker->dateTimeBetween('-1 month', 'now'),
     ];
 });

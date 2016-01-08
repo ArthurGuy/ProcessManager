@@ -155,7 +155,13 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ConfigServiceProvider::class,
 
+        /*
+         * 3rd Party Service Providers...
+         */
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        GrahamCampbell\GitHub\GitHubServiceProvider::class,
     ],
 
     /*
@@ -201,6 +207,8 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'GitHub' => 'GrahamCampbell\GitHub\Facades\GitHub'
 
     ],
 

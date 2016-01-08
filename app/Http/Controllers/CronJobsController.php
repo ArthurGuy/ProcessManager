@@ -30,7 +30,7 @@ class CronJobsController extends Controller
         }
 
         $task = new CronJob;
-        $task->name = $request->name;
+        $task->name = $request->get('name');
         $task->save();
 
         return redirect('/cron');

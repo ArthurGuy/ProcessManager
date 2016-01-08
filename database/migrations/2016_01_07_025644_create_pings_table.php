@@ -16,6 +16,7 @@ class CreatePingsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
+            $table->string('tags');
             $table->string('frequency');
             $table->string('frequency_value');
             $table->boolean('active');
@@ -23,6 +24,7 @@ class CreatePingsTable extends Migration
             $table->date('last_ping');
             $table->integer('created_by');
             $table->integer('updated_by');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
