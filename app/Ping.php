@@ -17,18 +17,16 @@ class Ping extends Model
             return [];
         }
         $tagArray = explode(',', $this->attributes['tags']);
-        return array_map(function($tag) {
-            return trim($tag);
-        }, $tagArray);
+        return $this->trimArrayItems($tagArray);
     }
 
 
-    public function setTagsAttribute($value)
+    public function setTagsAttribute($tags)
     {
-        if (is_array($value)) {
-            $this->attributes['tags'] = implode(',', trim($value));
+        if (is_array($tags)) {
+            $this->attributes['tags'] = implode(',', $this->trimArrayItems($tags));
         } else {
-            $this->attributes['tags'] = trim($value);
+            $this->attributes['tags'] = trim($tags);
         }
     }
 
@@ -39,5 +37,19 @@ class Ping extends Model
         }
 
         return $this->attributes['last_ping'];
+    }
+
+    /**
+     * Trim each item in the array
+     *
+     * @param array $tags
+     *
+     * @return array
+     */
+    private function trimArrayItems(array $tags)
+    {
+        return array_map(function($tag) {
+            return trim($tag);
+        }, $tags);
     }
 }
