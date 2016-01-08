@@ -38,33 +38,30 @@ class GitHubController extends Controller
     {
         $socialiteUser = Socialite::driver('github')->user();
 
-        $this->github->authenticate(\Github\Client::AUTH_URL_TOKEN, $socialiteUser->token);
+        //If the org filter is set get the users organisations and check them
+        if (!empty(env('VALID_GITHUB_ORG'))) {
+            $this->github->authenticate(\Github\Client::AUTH_URL_TOKEN, $socialiteUser->token);
 
-        $organizations = $this->github->currentUser()->memberships()->all();
+            $organizations = $this->github->currentUser()->memberships()->all();
 
-        $loginValid = false;
-        foreach ($organizations as $org) {
-            if ($org['organization']['login'] === env('VALID_GITHUB_ORG')) {
-                $loginValid = true;
+            $loginValid = false;
+            foreach ($organizations as $org) {
+                if ($org['organization']['login'] === env('VALID_GITHUB_ORG')) {
+                    $loginValid = true;
+                }
+            }
+
+            if (!$loginValid) {
+                return redirect('/login')->withError('Not a member of the required organisation');
             }
         }
 
-        if ($loginValid) {
-
-            $user = User::where('email', $socialiteUser->getEmail())->first();
-            if (!$user) {
-                //Register user
-                $user = User::create(['email' => $socialiteUser->getEmail(), 'name' => $socialiteUser->getName()]);
-            }
-            Auth::login($user);
-            return redirect('/');
-
-        } else {
-            return redirect('/login')->withError('Invalid');
+        //Locate a user or create an account
+        $user = User::where('email', $socialiteUser->getEmail())->first();
+        if (!$user) {
+            $user = User::create(['email' => $socialiteUser->getEmail(), 'name' => $socialiteUser->getName()]);
         }
-
-        //dd($organizations);
-
-        // $user->token;
+        Auth::login($user);
+        return redirect('/');
     }
 }

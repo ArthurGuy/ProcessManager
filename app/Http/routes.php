@@ -26,14 +26,18 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::any('/ping/{name}', 'PingController@hit');
 
-    Route::get('/pings', 'PingController@index');
-    Route::post('/pings', 'PingController@store');
-    Route::put('/pings/{id}', 'PingController@update');
-    Route::delete('/pings/{id}', 'PingController@destroy');
+    Route::group(['middleware' => 'auth'], function () {
+
+        Route::get('/pings', 'PingController@index');
+        Route::post('/pings', 'PingController@store');
+        Route::put('/pings/{id}', 'PingController@update');
+        Route::delete('/pings/{id}', 'PingController@destroy');
 
 
-    Route::get('/cron', 'CronJobsController@index');
-    Route::post('/cron', 'CronJobsController@store');
-    Route::delete('/cron/{id}', 'CronJobsController@destroy');
+        Route::get('/cron', 'CronJobsController@index');
+        Route::post('/cron', 'CronJobsController@store');
+        Route::delete('/cron/{id}', 'CronJobsController@destroy');
+
+    });
 
 });
