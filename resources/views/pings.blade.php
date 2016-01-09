@@ -4,18 +4,21 @@
 	<div class="container-fluid" id="pings">
 
 		<h1>Pings</h1>
-
-		@{{ pristinePings | json }}
-
+		
 		<div class="card">
-			<div class="card-text">
-				<p v-show="filterTag">
-					Filtering by: @{{ filterTag }}
-					<button v-on:click="filterByTag('')" type="button" class="btn btn-sm btn-info">Reset</button>
-				</p>
-				<span v-for="tag in tags">
-					<button v-on:click="filterByTag(tag)" type="button" class="btn btn-sm btn-info">@{{ tag }}</button>
-				</span>
+			<div class="card-block">
+				<h3 class="card-title">Filtering</h3>
+				<div class="card-text">
+					<p v-show="filterTag">
+						Filtering by: @{{ filterTag }}
+						<button v-on:click="filterByTag('')" type="button" class="btn btn-sm btn-info">Clear</button>
+					</p>
+
+					<span v-for="tag in tags">
+						<button v-on:click="filterByTag(tag)" type="button" class="btn btn-sm btn-info">@{{ tag }}</button>
+					</span>
+
+				</div>
 			</div>
 		</div>
 
@@ -64,17 +67,20 @@
 							<td>@{{ ping.last_ping | simpleDate }}</td>
 							<td>
 								<div v-show="!ping.edit">
-									<button v-on:click="editMode(ping, true)" class="btn btn-default btn-sm">Edit</button>
+									<button v-on:click="editMode(ping, pingIndex, true)" class="btn btn-default btn-sm">Edit</button>
 									<button v-on:click="deletePing(pingIndex)" class="btn btn-danger btn-sm">Delete</button>
 								</div>
 								<div v-show="ping.edit">
 									<button v-on:click="savePing(pingIndex)" class="btn btn-primary">Save</button>
-									<button v-on:click="editMode(ping, false)" class="btn btn-default">Cancel</button>
+									<button v-on:click="editMode(ping, pingIndex, false)" class="btn btn-default">Cancel</button>
 								</div>
 							</td>
 						</tr>
 					</tbody>
 				</table>
+			</div>
+			<div class="card-footer text-muted">
+				{{ \App\Ping::baseUrl() }}/[ping-name]
 			</div>
 		</div>
 

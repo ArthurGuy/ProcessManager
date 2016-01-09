@@ -162,6 +162,7 @@ return [
          */
         Laravel\Socialite\SocialiteServiceProvider::class,
         GrahamCampbell\GitHub\GitHubServiceProvider::class,
+        Creativeorange\Gravatar\GravatarServiceProvider::class,
     ],
 
     /*
@@ -208,7 +209,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-        'GitHub' => 'GrahamCampbell\GitHub\Facades\GitHub'
+        'GitHub'    => GrahamCampbell\GitHub\Facades\GitHub::class,
+        'Gravatar'  => Creativeorange\Gravatar\Facades\Gravatar::class,
 
     ],
 

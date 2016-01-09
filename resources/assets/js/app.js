@@ -71,16 +71,24 @@ new Vue({
             vlog(this.tags);
         },
 
-        editMode: function(ping, state) {
-            vlog(ping);
+        editMode: function(ping, pingIndex, state) {
+
             Vue.set(ping, 'edit', state);
 
             //store the pristine version so it can be put back if the user cancels
             if (state) {
-                this.pristinePings[ping.id] = ping;
+
+                this.pristinePings.push(Vue.util.extend({},ping));
+
             } else {
-                vlog(this.pristinePings[ping.id]);
-                Vue.set(ping, 'name', this.pristinePings[ping.id].name);
+
+                var backupPing = _.find(this.pristinePings, {id: ping.id});
+
+                Vue.set(ping, 'name', backupPing.name);
+
+                //Remove the copy from the pristine array?
+                _.remove(this.pristinePings, {id: ping.id});
+
             }
         },
 
@@ -111,6 +119,9 @@ new Vue({
                 this.pings[pingIndex] = response.data;
 
                 this.extractTags();
+
+                //Remove the copy from the pristine array?
+                _.remove(this.pristinePings, {id: ping.id});
 
             }, function (response) {
 

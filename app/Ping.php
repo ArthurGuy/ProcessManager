@@ -11,6 +11,8 @@ class Ping extends Model
 
     protected $dates = ['last_ping', 'deleted_at'];
 
+    protected $appends = ['ping_url'];
+
     public function getTagsAttribute()
     {
         if (empty($this->attributes['tags'])) {
@@ -37,6 +39,16 @@ class Ping extends Model
         }
 
         return $this->attributes['last_ping'];
+    }
+
+    public function getPingUrlAttribute()
+    {
+        return route('ping_url', $this->attributes['name']);
+    }
+
+    public static function baseUrl()
+    {
+        return route('ping_url', '');
     }
 
     /**

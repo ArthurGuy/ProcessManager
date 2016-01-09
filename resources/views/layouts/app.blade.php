@@ -7,7 +7,6 @@
 
     <title>Process Manager</title>
 
-    <!-- Styles -->
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
 
 </head>
@@ -18,9 +17,7 @@
             &#9776;
         </button>
         <div class="collapse navbar-toggleable-xs" id="navbar-header">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                Process Manager
-            </a>
+            <a class="navbar-brand" href="{{ url('/') }}">Process Manager</a>
 
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
@@ -31,13 +28,13 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav pull-xs-right">
-                <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/register') }}">Register</a></li>
                 @else
-                    <li class="nav-item"><a class="nav-link" href="#">{{ Auth::user()->name }}</a></li>
+                    <li class="nav-item"><span class="nav-link">{{ Auth::user()->name }}</span></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                    <li class="nav-item"><img width="40" height="40" src="{{ Gravatar::get(Auth::user()->email) }}"></li>
                 @endif
             </ul>
         </div>
@@ -45,7 +42,6 @@
 
     @yield('content')
 
-    <!-- JavaScripts -->
     <script src="{{ elixir('js/app.js') }}"></script>
 </body>
 </html>

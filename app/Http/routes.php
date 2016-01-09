@@ -1,19 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Routes File
-|--------------------------------------------------------------------------
-|
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-
-use App\CronJob;
-use Illuminate\Http\Request;
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
@@ -24,7 +10,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/auth/github/callback', 'Auth\GitHubController@handleProviderCallback');
 
 
-    Route::any('/ping/{name}', 'PingController@hit');
+    Route::get(env('PING_URL_PREFIX') . '/{name}', 'PingController@hit')->name('ping_url');
+    Route::post(env('PING_URL_PREFIX') . '/{name}', 'PingController@hit');
 
     Route::group(['middleware' => 'auth'], function () {
 
