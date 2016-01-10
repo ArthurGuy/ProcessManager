@@ -4,7 +4,7 @@
 	<div class="container-fluid" id="pings">
 
 		<h1>Pings</h1>
-		
+
 		<div class="card">
 			<div class="card-block">
 				<h3 class="card-title">Filtering</h3>
@@ -22,10 +22,14 @@
 			</div>
 		</div>
 
+		<div class="alert alert-danger" role="alert" v-if="alerts">
+			<strong>Alert</strong> There are problems, please review the checks below
+		</div>
+
 		<div class="card">
 
 			<div class="card-text">
-				<table class="table">
+				<table class="table table-sm">
 					<thead>
 						<th>Status</th>
 						<th>Name</th>
@@ -37,15 +41,22 @@
 					<tbody>
 						<tr v-for="(pingIndex, ping) in pings | tagFilter filterTag">
 							<td class="table-text">
-								<span v-if="!ping.active">Disabled</span>
-								<span v-if="ping.error">Error</span>
+								<span v-if="!ping.active" class="btn btn-secondary btn-sm">
+									<span title="Disabled" class="octicon octicon-circle-slash"></span>
+								</span>
+								<span v-if="ping.error && ping.active" class="btn btn-danger btn-sm">
+									<span title="Error" class="octicon octicon-alert"></span>
+								</span>
+								<span v-if="!ping.error && ping.active" class="btn btn-success btn-sm">
+									<span title="Error" class="octicon octicon-thumbsup"></span>
+								</span>
 							</td>
 							<td>
 								<div v-show="!ping.edit">
 									@{{ ping.name }}
 								</div>
 								<div v-show="ping.edit">
-									<input type="text" name="name" v-model="ping.name">
+									<input type="text" class="form-control" name="name" v-model="ping.name">
 								</div>
 							</td>
 							<td>
@@ -53,7 +64,7 @@
 									@{{ ping.description }}
 								</div>
 								<div v-show="ping.edit">
-									<input type="text" name="description" v-model="ping.description">
+									<input type="text" class="form-control" name="description" v-model="ping.description">
 								</div>
 							</td>
 							<td>
@@ -61,18 +72,44 @@
 									@{{ ping.tags }}
 								</div>
 								<div v-show="ping.edit">
-									<input type="text" name="tags" v-model="ping.tags">
+									<input type="text" class="form-control" name="tags" v-model="ping.tags">
 								</div>
 							</td>
-							<td>@{{ ping.last_ping | simpleDate }}</td>
 							<td>
 								<div v-show="!ping.edit">
-									<button v-on:click="editMode(ping, pingIndex, true)" class="btn btn-default btn-sm">Edit</button>
-									<button v-on:click="deletePing(pingIndex)" class="btn btn-danger btn-sm">Delete</button>
+									@{{ ping.last_ping | timeAgo }}<br />
+									<small>@{{ ping.last_ping | simpleDate }}</small>
 								</div>
 								<div v-show="ping.edit">
-									<button v-on:click="savePing(pingIndex)" class="btn btn-primary">Save</button>
-									<button v-on:click="editMode(ping, pingIndex, false)" class="btn btn-default">Cancel</button>
+									<div class="form-inline">
+									<input type="text" class="form-control" name="frequency_value" v-model="ping.frequency_value">
+									<select class="form-control" name="frequency" v-model="ping.frequency">
+										<option>minute</option>
+										<option>hour</option>
+										<option>day</option>
+										<option>week</option>
+										<option>month</option>
+									</select>
+									</div>
+								</div>
+							</td>
+							<td>
+								<div v-show="!ping.edit">
+									<button v-on:click="editMode(ping, pingIndex, true)" class="btn btn-default btn-sm">
+										<span title="Edit" class="octicon octicon-pencil"></span>
+									</button>
+									Fix this, cant use index with filtered lists
+									<button v-on:click="deletePing(pingIndex)" class="btn btn-danger btn-sm">
+										<span title="Delete" class="octicon octicon-trashcan"></span>
+									</button>
+								</div>
+								<div v-show="ping.edit">
+									<button v-on:click="savePing(pingIndex)" class="btn btn-success btn-sm">
+										<span title="Save" class="octicon octicon-check"></span>
+									</button>
+									<button v-on:click="editMode(ping, pingIndex, false)" class="btn btn-default btn-sm">
+										<span title="Cancel" class="octicon octicon-circle-slash"></span>
+									</button>
 								</div>
 							</td>
 						</tr>

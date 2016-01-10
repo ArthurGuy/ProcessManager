@@ -10,8 +10,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/auth/github/callback', 'Auth\GitHubController@handleProviderCallback');
 
 
-    Route::get(env('PING_URL_PREFIX') . '/{name}', 'PingController@hit')->name('ping_url');
-    Route::post(env('PING_URL_PREFIX') . '/{name}', 'PingController@hit');
+    Route::get(env('PING_URL_PREFIX') . '/{name}', 'HeartbeatController@beat')->name('ping_url');
+    Route::post(env('PING_URL_PREFIX') . '/{name}', 'HeartbeatController@beat');
 
     Route::group(['middleware' => 'auth'], function () {
 

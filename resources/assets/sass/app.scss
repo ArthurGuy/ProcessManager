@@ -1,3 +1,7 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+$octicons-font-path: '/fonts';
+
 @import "node_modules/bootstrap/scss/bootstrap";
+@import "octicons";
+
 

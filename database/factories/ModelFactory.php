@@ -30,6 +30,6 @@ $factory->define(App\Ping::class, function (Faker\Generator $faker) {
         'frequency_value' => $faker->numberBetween(1, 10),
         'active'          => $faker->boolean(80),
         'error'           => $faker->boolean(20),
-        'last_ping'       => $faker->dateTimeBetween('-1 month', 'now'),
+        'last_ping'       => $faker->dateTimeBetween('-1 week', 'now'),
     ];
 });

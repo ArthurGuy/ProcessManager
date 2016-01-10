@@ -41694,7 +41694,11 @@ var _ = require('lodash');
 Vue.config.debug = true;
 
 Vue.filter('simpleDate', function (value) {
-    return moment(value).format('D/M/YYYY');
+    return moment(value).format('D/M/YYYY HH:mm');
+});
+
+Vue.filter('timeAgo', function (value) {
+    return moment(value).fromNow();
 });
 
 Vue.filter('tagFilter', function (objectArray, filterTag) {
@@ -41729,10 +41733,22 @@ new Vue({
                 this.$set('pings', response.data);
 
                 this.extractTags();
+
+                this.checkForAlerts();
             }, function (response) {
 
                 console.log(response);
             });
+        },
+
+        checkForAlerts: function checkForAlerts() {
+            this.alerts = false;
+
+            for (var i in this.pings) {
+                if (this.pings[i].error && this.pings[i].active) {
+                    this.alerts = true;
+                }
+            }
         },
 
         extractTags: function extractTags() {
@@ -41771,6 +41787,10 @@ new Vue({
             this.$http.delete('/pings/' + ping.id).then(function (response) {
 
                 this.pings.splice(pingIndex, 1);
+
+                this.checkForAlerts();
+
+                this.extractTags();
             }, function (response) {
 
                 console.log(response.data);
@@ -41806,7 +41826,8 @@ new Vue({
         filterTag: null,
         pings: [],
         tags: [],
-        pristinePings: []
+        pristinePings: [],
+        alerts: false
     }
 });
 

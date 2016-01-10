@@ -32,7 +32,7 @@ class PingController extends Controller
                 ->withErrors($validator);
         }
 
-        $ping = $this->createDefaultPing($request->get('name'), false, Auth::id());
+        $ping = Ping::createDefaultPing($request->get('name'), false, Auth::id());
 
         return redirect('/pings');
     }
@@ -40,9 +40,11 @@ class PingController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name'        => 'required|max:255',
-            'description' => 'max:255',
-            'tags'        => 'max:255',
+            'name'            => 'required|max:255',
+            'description'     => 'max:255',
+            'tags'            => 'max:255',
+            'frequency'       => 'required',
+            'frequency_value' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -51,9 +53,11 @@ class PingController extends Controller
 
         $ping = Ping::findOrFail($id);
 
-        $ping->name        = $request->get('name');
-        $ping->description = $request->get('description');
-        $ping->tags        = $request->get('tags');
+        $ping->name            = $request->get('name');
+        $ping->description     = $request->get('description');
+        $ping->tags            = $request->get('tags');
+        $ping->frequency       = $request->get('frequency');
+        $ping->frequency_value = $request->get('frequency_value');
 
         $ping->updated_by = Auth::id();
 
@@ -70,35 +74,5 @@ class PingController extends Controller
         }
 
         return redirect('/cron');
-    }
-
-    public function hit($name)
-    {
-        $ping = Ping::where('name', $name)->first();
-
-        if (!$ping) {
-
-            $ping = $this->createDefaultPing($name, true);
-
-        }
-
-        return $ping;
-    }
-
-
-    private function createDefaultPing($name, $active, $createdBy = null)
-    {
-        $ping       = new Ping;
-        $ping->name = $name;
-        if ($createdBy) {
-            $ping->created_by = $createdBy;
-        }
-        $ping->active          = $active;
-        $ping->error           = false;
-        $ping->frequency       = 'day';
-        $ping->frequency_value = '1';
-        $ping->save();
-
-        return $ping;
     }
 }

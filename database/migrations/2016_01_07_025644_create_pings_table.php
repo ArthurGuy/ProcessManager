@@ -21,7 +21,7 @@ class CreatePingsTable extends Migration
             $table->string('frequency_value');
             $table->boolean('active');
             $table->boolean('error');
-            $table->date('last_ping');
+            $table->dateTime('last_ping');
             $table->integer('created_by');
             $table->integer('updated_by');
             $table->softDeletes();
