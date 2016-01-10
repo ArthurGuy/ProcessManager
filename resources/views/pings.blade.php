@@ -95,19 +95,18 @@
 							</td>
 							<td>
 								<div v-show="!ping.edit">
-									<button v-on:click="editMode(ping, pingIndex, true)" class="btn btn-default btn-sm">
+									<button v-on:click="editMode(ping, true)" class="btn btn-default btn-sm">
 										<span title="Edit" class="octicon octicon-pencil"></span>
 									</button>
-									Fix this, cant use index with filtered lists
-									<button v-on:click="deletePing(pingIndex)" class="btn btn-danger btn-sm">
+									<button v-on:click="deletePing(ping)" class="btn btn-danger btn-sm">
 										<span title="Delete" class="octicon octicon-trashcan"></span>
 									</button>
 								</div>
 								<div v-show="ping.edit">
-									<button v-on:click="savePing(pingIndex)" class="btn btn-success btn-sm">
+									<button v-on:click="savePing(ping)" class="btn btn-success btn-sm">
 										<span title="Save" class="octicon octicon-check"></span>
 									</button>
-									<button v-on:click="editMode(ping, pingIndex, false)" class="btn btn-default btn-sm">
+									<button v-on:click="editMode(ping, false)" class="btn btn-default btn-sm">
 										<span title="Cancel" class="octicon octicon-circle-slash"></span>
 									</button>
 								</div>

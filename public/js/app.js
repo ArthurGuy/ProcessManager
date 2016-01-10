@@ -41761,7 +41761,7 @@ new Vue({
             vlog(this.tags);
         },
 
-        editMode: function editMode(ping, pingIndex, state) {
+        editMode: function editMode(ping, state) {
 
             Vue.set(ping, 'edit', state);
 
@@ -41774,18 +41774,25 @@ new Vue({
                 var backupPing = _.find(this.pristinePings, { id: ping.id });
 
                 Vue.set(ping, 'name', backupPing.name);
+                Vue.set(ping, 'description', backupPing.description);
+                Vue.set(ping, 'tags', backupPing.tags);
+                Vue.set(ping, 'frequency', backupPing.frequency);
+                Vue.set(ping, 'frequency_value', backupPing.frequency_value);
 
                 //Remove the copy from the pristine array?
                 _.remove(this.pristinePings, { id: ping.id });
             }
         },
 
-        deletePing: function deletePing(pingIndex) {
+        deletePing: function deletePing(ping) {
 
-            var ping = this.pings[pingIndex];
+            //var ping = this.pings[pingIndex];
 
             this.$http.delete('/pings/' + ping.id).then(function (response) {
 
+                var pingIndex = _.findIndex(this.pings, function (record) {
+                    return record.id == ping.id;
+                });
                 this.pings.splice(pingIndex, 1);
 
                 this.checkForAlerts();
@@ -41797,15 +41804,16 @@ new Vue({
             });
         },
 
-        savePing: function savePing(pingIndex) {
-
-            var ping = this.pings[pingIndex];
+        savePing: function savePing(ping) {
 
             this.$http.put('/pings/' + ping.id, ping).then(function (response) {
 
-                this.pings[pingIndex].edit = false;
+                Vue.set(ping, 'edit', false);
 
                 //Update the local record with the updated one from the server
+                var pingIndex = _.findIndex(this.pings, function (record) {
+                    return record.id == ping.id;
+                });
                 this.pings[pingIndex] = response.data;
 
                 this.extractTags();

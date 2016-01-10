@@ -7,6 +7,16 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property array  tags
+ * @property string name
+ * @property bool   overdue
+ * @property bool   error
+ * @property Carbon last_ping
+ * @property int    frequency_value
+ * @property string frequency
+ * @property Carbon overdueDate
+ */
 class Ping extends Model
 {
     use SoftDeletes;

@@ -6,9 +6,10 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="card">
                 <div class="card-header">Dashboard</div>
-
-                <div class="card-text">
-                    You are logged in!
+                <div class="card-block">
+                    <div class="card-text">
+                        You are logged in!
+                    </div>
                 </div>
             </div>
         </div>
