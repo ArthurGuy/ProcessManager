@@ -7,6 +7,7 @@
             <div class="card">
                 <div class="card-header">Login</div>
                 <div class="card-block">
+                    @if (in_array(env('ACCESS_TYPE', 'all'), ['all', 'email']))
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {!! csrf_field() !!}
 
@@ -42,13 +43,15 @@
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Login</button>
 
-                                <a class="btn btn-link" href="{{ url('/auth/github') }}">Github Login</a>
-
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
                             </div>
                         </div>
                         <input type="hidden" name="remember" value="1">
                     </form>
+                    @endif
+                    @if (in_array(env('ACCESS_TYPE', 'all'), ['all', 'github']))
+                        <a class="btn btn-link" href="{{ url('/auth/github') }}">Github Login</a>
+                    @endif
                 </div>
             </div>
         </div>

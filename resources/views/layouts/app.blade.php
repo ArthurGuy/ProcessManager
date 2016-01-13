@@ -30,7 +30,9 @@
             <ul class="nav navbar-nav pull-xs-right">
                 @if (Auth::guest())
                     <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/register') }}">Register</a></li>
+                    @if (in_array(env('ACCESS_TYPE', 'all'), ['all', 'email']))
+                        <li class="nav-item"><a class="nav-link" href="{{ url('/register') }}">Register</a></li>
+                    @endif
                 @else
                     <li class="nav-item"><span class="nav-link">{{ Auth::user()->name }}</span></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>

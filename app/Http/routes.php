@@ -2,12 +2,31 @@
 
 
 Route::group(['middleware' => 'web'], function () {
-    Route::auth();
 
     Route::get('/', 'HomeController@index');
 
-    Route::get('/auth/github', 'Auth\GitHubController@redirectToProvider');
-    Route::get('/auth/github/callback', 'Auth\GitHubController@handleProviderCallback');
+    Route::get('logout', 'Auth\AuthController@logout');
+    Route::get('login', 'Auth\AuthController@showLoginForm');
+
+    if (in_array(env('ACCESS_TYPE', 'all'), ['all', 'email'])) {
+        // Authentication Routes...
+        Route::post('login', 'Auth\AuthController@login');
+
+        // Registration Routes...
+        Route::get('register', 'Auth\AuthController@showRegistrationForm');
+        Route::post('register', 'Auth\AuthController@register');
+
+        // Password Reset Routes...
+        Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm');
+        Route::post('password/email', 'Auth\PasswordController@sendResetLinkEmail');
+        Route::post('password/reset', 'Auth\PasswordController@reset');
+    }
+
+
+    if (in_array(env('ACCESS_TYPE', 'all'), ['all', 'github'])) {
+        Route::get('/auth/github', 'Auth\GitHubController@redirectToProvider');
+        Route::get('/auth/github/callback', 'Auth\GitHubController@handleProviderCallback');
+    }
 
 
     Route::get(env('PING_URL_PREFIX') . '/{name}', 'HeartbeatController@beat')->name('ping_url');
