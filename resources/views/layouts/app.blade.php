@@ -24,6 +24,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/cron') }}">Cron Jobs</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/pings') }}">Pings</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/contacts') }}">Contacts</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->

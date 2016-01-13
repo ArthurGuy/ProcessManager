@@ -48,7 +48,7 @@
 									<span title="Error" class="octicon octicon-alert"></span>
 								</span>
 								<span v-if="!ping.error && ping.active" class="btn btn-success btn-sm">
-									<span title="Error" class="octicon octicon-thumbsup"></span>
+									<span title="OK" class="octicon octicon-thumbsup"></span>
 								</span>
 							</td>
 							<td>

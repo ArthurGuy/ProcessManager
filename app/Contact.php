@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property string email
+ * @property string name
+ * @property array  filter_tags
+ * @property bool   active
  */
 class Contact extends Model
 {

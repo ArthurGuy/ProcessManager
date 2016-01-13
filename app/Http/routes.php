@@ -44,6 +44,12 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/cron', 'CronJobsController@store');
         Route::delete('/cron/{id}', 'CronJobsController@destroy');
 
+
+        Route::get('/contacts', 'ContactController@index');
+        Route::post('/contacts', 'ContactController@store');
+        Route::put('/contacts/{id}', 'ContactController@update');
+        Route::delete('/contacts/{id}', 'ContactController@destroy');
+
     });
 
 });
