@@ -5,7 +5,7 @@
 
 		<h1>Pings</h1>
 
-		<div class="card">
+		<div class="card" v-show="tags.length > 0" style="display:none;">
 			<div class="card-block">
 				<h3 class="card-title">Filtering</h3>
 				<div class="card-text">
@@ -22,11 +22,11 @@
 			</div>
 		</div>
 
-		<div class="alert alert-danger" role="alert" v-if="alerts">
+		<div class="alert alert-danger" role="alert" v-show="alerts"  style="display:none;">
 			<strong>Alert</strong> There are problems, please review the checks below
 		</div>
 
-		<div class="card">
+		<div class="card" v-show="pings.length > 0" style="display:none;">
 
 			<div class="card-text">
 				<table class="table table-sm">
