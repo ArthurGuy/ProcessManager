@@ -16,15 +16,16 @@
 					<div class="card-text">
 						<table class="table table-striped task-table">
 							<thead>
-								<th>Active</th>
+								<!--<th>Active</th>-->
 								<th>Name</th>
 								<th>Email</th>
-								<th>Tags</th>
+								<th>Filter Tags</th>
 								<th>&nbsp;</th>
 							</thead>
 							<tbody>
 								@foreach ($contacts as $contact)
 									<tr>
+										<!--
 										<td class="table-text">
 											@if($contact->active)
 												<span class="btn btn-success btn-sm"><span title="Active" class="octicon octicon-thumbsup"></span></span>
@@ -32,6 +33,7 @@
 												<span class="btn btn-danger btn-sm"><span title="Disabled" class="octicon octicon-circle-slash"></span></span>
 											@endif
 										</td>
+										-->
 										<td class="table-text"><div>{{ $contact->name }}</div></td>
 										<td class="table-text"><div>{{ $contact->email }}</div></td>
 										<td class="table-text"><div>{{ implode(', ', $contact->filter_tags) }}</div></td>
@@ -94,7 +96,7 @@
                             <!-- Add Task Button -->
                             <fieldset class="form-group">
                                 <div class="col-sm-offset-3">
-                                    <button type="submit" class="btn btn-primary">Add Cron Job</button>
+                                    <button type="submit" class="btn btn-primary">Add Contact</button>
                                 </div>
                             </fieldset>
                         </form>
