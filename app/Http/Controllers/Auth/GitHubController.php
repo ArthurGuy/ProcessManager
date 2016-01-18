@@ -62,6 +62,6 @@ class GitHubController extends Controller
             $user = User::create(['email' => $socialiteUser->getEmail(), 'name' => $socialiteUser->getName()]);
         }
         Auth::login($user);
-        return redirect('/');
+        return redirect('/pings');
     }
 }

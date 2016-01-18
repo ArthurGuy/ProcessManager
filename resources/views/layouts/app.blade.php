@@ -17,14 +17,13 @@
             &#9776;
         </button>
         <div class="collapse navbar-toggleable-xs" id="navbar-header">
-            <a class="navbar-brand" href="{{ url('/') }}">Process Manager</a>
+            <span class="navbar-brand">Process Manager</span>
 
             <!-- Left Side Of Navbar -->
             <ul class="nav navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ url('/cron') }}">Cron Jobs</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/pings') }}">Pings</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/contacts') }}">Contacts</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url('/cron') }}">Cron Jobs</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->

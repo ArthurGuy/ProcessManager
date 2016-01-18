@@ -3,7 +3,9 @@
 
 Route::group(['middleware' => 'web'], function () {
 
-    Route::get('/', 'HomeController@index');
+    Route::get('/', function() {
+        return Redirect::to('/pings');
+    });
 
     Route::get('logout', 'Auth\AuthController@logout');
     Route::get('login', 'Auth\AuthController@showLoginForm');
