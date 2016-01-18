@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Contact;
 use Auth;
 use App\User;
 use GrahamCampbell\GitHub\GitHubManager;
@@ -60,6 +61,13 @@ class GitHubController extends Controller
         $user = User::where('email', $socialiteUser->getEmail())->first();
         if (!$user) {
             $user = User::create(['email' => $socialiteUser->getEmail(), 'name' => $socialiteUser->getName()]);
+            //Add a contact record for the user so they receive update notifications
+            $contact              = new Contact;
+            $contact->name        = $user->name;
+            $contact->email       = $user->email;
+            $contact->filter_tags = [];
+            $contact->active      = true;
+            $contact->save();
         }
         Auth::login($user);
         return redirect('/pings');
