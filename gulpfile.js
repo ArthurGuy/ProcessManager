@@ -1,4 +1,5 @@
 var elixir = require('laravel-elixir');
+var babelify = require('babelify');
 
 /*
  |--------------------------------------------------------------------------
@@ -13,7 +14,7 @@ var elixir = require('laravel-elixir');
 
 elixir(function (mix) {
     mix.sass('app.scss')
-        .browserify('app.js')
-        .version(['css/app.css', 'js/app.js']);
+        .browserify('index.js')
+        .version(['css/app.css', 'js/index.js']);
     mix.copy('resources/assets/fonts/', 'public/fonts/');
 });

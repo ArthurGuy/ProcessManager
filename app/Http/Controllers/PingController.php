@@ -14,6 +14,7 @@ class PingController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
+            sleep(1);
             return Ping::orderBy('created_at', 'asc')->get();
         }
 
@@ -22,11 +23,16 @@ class PingController extends Controller
 
     public function store(Request $request)
     {
+        sleep(2);
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
+            'name' => 'required|max:255|unique:pings',
         ]);
 
         if ($validator->fails()) {
+            /** @var \Illuminate\Validation\Validator $validator */
+            if ($request->wantsJson()) {
+                return response( $validator->getMessageBag(), 422);
+            }
             return redirect('/pings')
                 ->withInput()
                 ->withErrors($validator);
@@ -34,6 +40,13 @@ class PingController extends Controller
 
         $ping = Ping::createDefaultPing($request->get('name'), false, Auth::id());
 
+        if ($request->wantsJson()) {
+
+            $ping = Ping::findOrFail($ping->id);
+
+            sleep(1);
+            return $ping;
+        }
         return redirect('/pings');
     }
 

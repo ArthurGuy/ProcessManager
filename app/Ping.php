@@ -25,6 +25,12 @@ class Ping extends Model
 
     protected $appends = ['ping_url'];
 
+    protected $casts = [
+        'active'           => 'boolean',
+        'error'            => 'boolean',
+        'frequency_value'  => 'integer',
+    ];
+
 
     /**
      * Attributes
