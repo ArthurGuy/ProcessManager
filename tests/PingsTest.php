@@ -52,4 +52,24 @@ class PingsTest extends TestCase
         $this->assertEquals(20, count(json_decode($response->content())));
     }
 
+    /**
+     * @test
+     */
+    public function ping_cant_be_created_via_web_request()
+    {
+        $this->post('/pings', ['name' => 'test-ping'])
+            ->assertResponseStatus(400);
+        $this->dontSeeInDatabase('pings', ['name' => 'test-ping']);
+    }
+
+    /**
+     * @test
+     */
+    public function ping_can_be_created_via_api()
+    {
+        $this->json('POST', '/pings', ['name' => 'test-ping-2'], ['Accept' => 'application/json'])
+            ->assertResponseStatus(200);
+        $this->seeInDatabase('pings', ['name' => 'test-ping-2', 'active' => 1]);
+    }
+
 }

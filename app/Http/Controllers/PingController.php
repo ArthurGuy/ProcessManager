@@ -28,7 +28,9 @@ class PingController extends Controller
 
         sleep(1);
 
-        $validator = Validator::make($request->all(), [
+        $requestData = $request->all();
+
+        $validator = Validator::make($requestData, [
             'name' => 'required|alpha_dash|max:255|unique:pings,name,NULL,id,deleted_at,NULL',
         ]);
 
@@ -37,7 +39,7 @@ class PingController extends Controller
             return response( $validator->getMessageBag(), 422);
         }
 
-        $ping = Ping::createDefaultPing($request->get('name'), true, Auth::id());
+        $ping = Ping::createDefaultPing($requestData['name'], true, Auth::id());
 
         return Ping::findOrFail($ping->id);
     }

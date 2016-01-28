@@ -168,6 +168,8 @@ class Ping extends Model
             $ping->created_by = $createdBy;
         }
         $ping->active          = $active;
+        $ping->description     = '';
+        $ping->tags            = [];
         $ping->error           = false;
         $ping->frequency       = 'day';
         $ping->frequency_value = '1';
