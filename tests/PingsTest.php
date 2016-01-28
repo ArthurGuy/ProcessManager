@@ -46,9 +46,10 @@ class PingsTest extends TestCase
     {
         $pings = factory(App\Ping::class, 20)->create();
 
-        $this->get('/pings', ['Accept' => 'application/json'])
-            ->seeJsonContains($pings[0]->toArray());
-            //->json
+        $response = $this->get('/pings', ['Accept' => 'application/json'])
+            ->seeJsonContains($pings[0]->toArray())->response;
+
+        $this->assertEquals(20, count(json_decode($response->content())));
     }
 
 }
