@@ -15,6 +15,3 @@ notifications:
   webhooks:
     on_success: always
     on_failure: never
-env:
-  global:
-  - ENCRYPTION_KEY=emddliEggqQaP44m3F6yQBGLSwS9n0KT
