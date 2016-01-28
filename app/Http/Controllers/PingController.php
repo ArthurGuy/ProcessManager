@@ -14,7 +14,6 @@ class PingController extends Controller
     public function index(Request $request)
     {
         if ($request->wantsJson()) {
-            sleep(1);
             return Ping::orderBy('created_at', 'asc')->get();
         }
 

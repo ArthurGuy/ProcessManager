@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => env('MAIL_FROM_ADDRESS', 'noreply@example.com'), 'name' => env('MAIL_FROM_NAME', 'Process Manager')],
+    'from' => ['address' => env('MAIL_FROM_ADDRESS', 'noreply@example.com'), 'name' => env('MAIL_FROM_NAME', 'Process Monitor')],
 
     /*
     |--------------------------------------------------------------------------

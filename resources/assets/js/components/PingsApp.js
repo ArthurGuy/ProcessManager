@@ -4,6 +4,7 @@ import { savePing, setPingEditMode, updatePing, fetchPings, filterByTag, deleteP
 import AddNewPing from './pings/AddNewPing'
 import PingTable from './pings/PingTable'
 import TagList from '../common/components/TagList'
+import Alert from '../common/components/Alert'
 import {_} from 'lodash'
 
 class PingsApp extends Component {
@@ -25,6 +26,8 @@ class PingsApp extends Component {
 
                 <h1>Pings</h1>
 
+                <Alert type="danger" message={ this.props.globalWarning } />
+
                 <p>Tags: <TagList tags={this.props.tags} onTagClick={tag => dispatch(filterByTag(tag))} /></p>
 
                 <p>
@@ -39,6 +42,10 @@ class PingsApp extends Component {
                     onPingUpdateClick={(id, details) => dispatch(updatePing(id, details)) }
                     onPingCancelEditClick={id => dispatch(setPingEditMode(id, false)) }
                 />
+
+                <div className="card-footer text-muted">
+                    [base-url]/[ping-name]
+                </div>
 
                 <AddNewPing onAddClick={name => dispatch(savePing(name))} errorMessage={this.props.errorMessage} />
 
@@ -57,14 +64,32 @@ function selectPings(pings, filterTag) {
     return pings.filter(ping => _.contains(ping.tags, filterTag))
 }
 
+function checkForAlerts(pings) {
+    let alerts = false;
+
+    for (var i in pings) {
+        if (pings[i].error && pings[i].active) {
+            alerts = true;
+        }
+    }
+    return alerts
+}
+
 //the state params come from the reducers export
 function mapStateToProps(state) {
+
+    let globalWarning = ''
+    if (checkForAlerts(state.pings.items)) {
+        globalWarning = 'One or more pings are in an error state'
+    }
+
     return {
         visiblePings: selectPings(state.pings.items, state.pings.filterTag),
         visibilityFilter: state.visibilityFilter,
         tags: state.pings.tags,
         filterTag: state.pings.filterTag,
-        errorMessage: state.pings.errorMessage
+        errorMessage: state.pings.errorMessage,
+        globalWarning: globalWarning
     }
 }
 
