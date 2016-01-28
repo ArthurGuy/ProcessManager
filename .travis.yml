@@ -1,0 +1,20 @@
+language: php
+php:
+- 5.5
+sudo: false
+before_script:
+- travis_retry composer self-update
+- travis_retry composer install --prefer-source --no-interaction
+- touch storage/database.sqlite
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+script:
+- phpunit
+notifications:
+  email: false
+  webhooks:
+    on_success: always
+    on_failure: never
+env:
+  global:
+  - ENCRYPTION_KEY=emddliEggqQaP44m3F6yQBGLSwS9n0KT
