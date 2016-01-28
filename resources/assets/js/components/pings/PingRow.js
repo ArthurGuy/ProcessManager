@@ -11,12 +11,20 @@ export default class PingRow extends Component {
         let pingAlert = (this.props.active && this.props.error)
         let pingOK = (this.props.active && !this.props.error)
 
+        let className = ''
+        if (this.props.isSaving) {
+            className = 'table-warning'
+        }
+
         return (
-            <tr key={this.props.id}>
+            <tr
+                key={this.props.id}
+                className={className}
+            >
                 <td>
-                    {pingDisabled && <span className="btn btn-secondary btn-sm"><span title="Disabled" className="octicon octicon-circle-slash" /></span>}
-                    {pingAlert && <span className="btn btn-danger btn-sm"><span title="Error" className="octicon octicon-alert" /></span>}
-                    {pingOK && <span className="btn btn-success btn-sm"><span title="OK" className="octicon octicon-thumbsup" /></span>}
+                    {pingDisabled && <span className="label label-default btn-sm"><span title="Disabled" className="octicon octicon-circle-slash" /></span>}
+                    {pingAlert && <span className="label label-danger btn-sm"><span title="Error" className="octicon octicon-alert" /></span>}
+                    {pingOK && <span className="label label-success btn-sm"><span title="OK" className="octicon octicon-thumbsup" /></span>}
                 </td>
                 <td>
                     {!this.props.editMode && this.props.name}
@@ -49,16 +57,13 @@ export default class PingRow extends Component {
                     {!this.props.editMode && <button className="btn btn-sm btn-danger" onClick={this.props.onDeleteClick} style={{margin: '0 1px'}}><span title="Delete" className="octicon octicon-trashcan" /></button>}
                     {this.props.editMode && <button className="btn btn-sm btn-success" onClick={(e) => this.handleSaveClick(e)} style={{margin: '0 1px'}}><span title="Save" className="octicon octicon-check" /></button>}
                     {this.props.editMode && <button className="btn btn-sm btn-default" onClick={this.props.onEditCancelClick} style={{margin: '0 1px'}}><span title="Cancel" className="octicon octicon-circle-slash" /></button>}
-                    {this.props.isSaving && <strong>Saving...</strong>}
                 </td>
             </tr>
         )
     }
 
     handleSaveClick(e) {
-        //const nameNode = this.refs.name
         const name = this.refs.name.value.trim()
-        //const descriptionNode = this.refs.description
         const description = this.refs.description.value.trim()
         const tags = this.refs.tags.value.trim()
         const frequency = this.refs.frequency.value.trim()

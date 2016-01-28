@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react'
+import Alert from '../../common/components/Alert'
 
 export default class AddNewPing extends Component {
+
     render() {
         return (
             <div className="card">
@@ -9,10 +11,13 @@ export default class AddNewPing extends Component {
                 </div>
                 <div className="card-block">
                     <div className="card-text">
+
+                        <Alert type="danger" message={ this.props.errorMessage } />
+
                         <div className="form-group row">
                             <label htmlFor="ping-name" className="col-sm-3 form-control-label">Name</label>
                             <div className="col-sm-9">
-                                <input className="form-control" type='text' ref='input' id="ping-name" />
+                                <input className="form-control" type='text' ref='input' id="ping-name" onKeyDown={(e) => this.handleKeyDown(e)} />
                             </div>
                         </div>
                         <fieldset className="form-group">
@@ -28,16 +33,24 @@ export default class AddNewPing extends Component {
         )
     }
 
-    handleClick(e) {
+    submitForm(e) {
         const node = this.refs.input
         const name = node.value.trim()
         this.props.onAddClick(name)
         node.value = ''
     }
+
+    handleClick(e) {
+        this.submitForm(e)
+    }
+
+    handleKeyDown(evt) {
+        if (evt.keyCode == 13 ) {
+            return this.submitForm()
+        }
+    }
 }
 
-/*
 AddNewPing.propTypes = {
     onAddClick: PropTypes.func.isRequired
 }
-*/

@@ -40,26 +40,13 @@ class PingsApp extends Component {
                     onPingCancelEditClick={id => dispatch(setPingEditMode(id, false)) }
                 />
 
-                <AddNewPing onAddClick={name => dispatch(savePing(name))} />
+                <AddNewPing onAddClick={name => dispatch(savePing(name))} errorMessage={this.props.errorMessage} />
 
             </div>
         )
     }
 }
 
-/*
-PingsApp.propTypes = {
-    visiblePings: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        completed: PropTypes.bool.isRequired
-    }).isRequired).isRequired,
-    visibilityFilter: PropTypes.oneOf([
-        'SHOW_ALL',
-        'SHOW_COMPLETED',
-        'SHOW_ACTIVE'
-    ]).isRequired
-}
-*/
 function selectPings(pings, filterTag) {
     //filter pings by filterTag
 
@@ -76,7 +63,8 @@ function mapStateToProps(state) {
         visiblePings: selectPings(state.pings.items, state.pings.filterTag),
         visibilityFilter: state.visibilityFilter,
         tags: state.pings.tags,
-        filterTag: state.pings.filterTag
+        filterTag: state.pings.filterTag,
+        errorMessage: state.pings.errorMessage
     }
 }
 

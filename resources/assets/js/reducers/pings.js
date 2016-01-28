@@ -45,7 +45,7 @@ export default function pings(state = initialState, action) {
                     id: action.draftPingId,
                     name: action.name,
                     isSaving: action.isSaving,
-                    description: 'default description',
+                    description: 'saving new ping...',
                     completed: false,
                     editMode: false,
                     tags: [],
@@ -56,7 +56,7 @@ export default function pings(state = initialState, action) {
                     last_ping: "0000-00-00 00:00:00"
                 }
             ]
-            return {isFetching: true, items: pings, tags:extractTags(pings)}
+            return {isFetching: true, items: pings, errorMessage:null, tags:extractTags(pings)}
 
         case UPDATE_PING:
             nextState = {isFetching: false}
@@ -76,7 +76,6 @@ export default function pings(state = initialState, action) {
             return Object.assign({}, state, {
                 isFetching: false,
                 items: action.pings,
-                lastUpdated: action.receivedAt,
                 tags: extractTags(action.pings)
             })
 
@@ -114,8 +113,9 @@ export default function pings(state = initialState, action) {
 
         case PING_SAVE_FAILED:
             console.log('save error')
+            //console.log(action.response);
 
-            nextState = {isFetching: false}
+            nextState = {isFetching: false, errorMessage: action.response.statusText}
 
             return Object.assign({}, state, nextState)
 
@@ -127,6 +127,8 @@ export default function pings(state = initialState, action) {
             nextState.items = state.items.filter(t =>
                 (t.id !== action.pingId)
             )
+
+            nextState.tags = extractTags(nextState.items)
 
             return Object.assign({}, state, nextState)
 

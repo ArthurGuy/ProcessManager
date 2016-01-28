@@ -49,8 +49,10 @@ export function savePing(name) {
         .then(fetchCheckStatus)
         .then(response => response.json())
         .then(json => dispatch(updateLocalPing(localPingId, json)))
-        .catch(response => {
-            dispatch(pingSaveFailed(localPingId, response))
+        .catch(error => {
+            //Not sure whats going on here - validation failures end up here but according to the spec they
+            // shouldn't cause the promise to fail
+            dispatch(pingSaveFailed(localPingId, error.response))
             dispatch(deleteLocalPing(localPingId))
         })
     }
@@ -71,8 +73,7 @@ export function updateLocalPing(draftPingId, data) {
     return {
         type: UPDATE_PING,
         draftPingId,
-        ping: data,
-        receivedAt: Date.now()
+        ping: data
     }
 }
 
@@ -81,8 +82,7 @@ export function pingSaveFailed(draftPingId, response) {
     return {
         type: PING_SAVE_FAILED,
         draftPingId,
-        response,
-        receivedAt: Date.now()
+        response
     }
 }
 
@@ -170,8 +170,7 @@ export function requestPings() {
 export function receivePings(data) {
     return {
         type: RECEIVE_PINGS,
-        pings: data,
-        receivedAt: Date.now()
+        pings: data
     }
 }
 

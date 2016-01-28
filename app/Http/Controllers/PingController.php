@@ -38,7 +38,7 @@ class PingController extends Controller
                 ->withErrors($validator);
         }
 
-        $ping = Ping::createDefaultPing($request->get('name'), false, Auth::id());
+        $ping = Ping::createDefaultPing($request->get('name'), true, Auth::id());
 
         if ($request->wantsJson()) {
 
