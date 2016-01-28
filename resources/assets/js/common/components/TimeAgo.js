@@ -1,13 +1,17 @@
 import React from 'react';
-import moment from 'moment'
+import {FormattedRelative, injectIntl} from 'react-intl';
 
-export default class TimeAgo extends React.Component {
+const TimeAgo = ({date, intl}) => {
 
-    render() {
-
-        return (
-            <span>{moment(this.props.date).fromNow()}</span>
-        )
-
+    if (date == '0000-00-00 00:00:00') {
+        return (<span>-</span>)
     }
+
+    return (
+        <FormattedRelative value={new Date(date)} />
+    )
+
 }
+
+//Inject the internationalisation data into the component
+export default injectIntl(TimeAgo)

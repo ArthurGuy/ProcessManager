@@ -1,13 +1,24 @@
 import React from 'react';
-import moment from 'moment'
+import {FormattedDate, injectIntl} from 'react-intl';
 
-export default class DateTime extends React.Component {
 
-    render() {
+const DateTime = ({date, intl}) => {
 
-        return (
-            <span>{moment(this.props.date).format('D/M/YYYY HH:mm')}</span>
-        )
-
+    if (date == '0000-00-00 00:00:00') {
+        return (<span>-</span>)
     }
+
+    return (
+        <span>
+            <FormattedDate
+                value={new Date(date)}
+                day="numeric"
+                month="short"
+                year="numeric" />
+        </span>
+    )
+
 }
+
+//Inject the internationalisation data into the component
+export default injectIntl(DateTime)

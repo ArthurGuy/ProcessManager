@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import pingsReducer from './reducers/pings';
 import contactsReducer from './reducers/contacts';
+import userReducer from './reducers/user';
 import DevToolsApp from './components/DevToolsApp';
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
@@ -11,7 +12,8 @@ import { browserHistory } from 'react-router'
 const reducer = combineReducers({
     pings: pingsReducer,
     contacts: contactsReducer,
-    routing: routeReducer
+    routing: routeReducer,
+    user: userReducer
 })
 
 //const history = createHistory()

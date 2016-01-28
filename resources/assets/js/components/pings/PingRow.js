@@ -45,10 +45,10 @@ export default class PingRow extends Component {
                     </select>}
                 </td>
                 <td>
-                    {!this.props.editMode && <button className="btn btn-sm btn-default" onClick={this.props.onEditClick}><span title="Edit" className="octicon octicon-pencil" /></button>}
-                    {!this.props.editMode && <button className="btn btn-sm btn-danger" onClick={this.props.onDeleteClick}><span title="Delete" className="octicon octicon-trashcan" /></button>}
-                    {this.props.editMode && <button className="btn btn-sm btn-success" onClick={(e) => this.handleSaveClick(e)}><span title="Save" className="octicon octicon-check" /></button>}
-                    {this.props.editMode && <button className="btn btn-sm btn-default" onClick={this.props.onEditCancelClick}><span title="Cancel" className="octicon octicon-circle-slash" /></button>}
+                    {!this.props.editMode && <button className="btn btn-sm btn-default" onClick={this.props.onEditClick} style={{margin: '0 1px'}}><span title="Edit" className="octicon octicon-pencil" /></button>}
+                    {!this.props.editMode && <button className="btn btn-sm btn-danger" onClick={this.props.onDeleteClick} style={{margin: '0 1px'}}><span title="Delete" className="octicon octicon-trashcan" /></button>}
+                    {this.props.editMode && <button className="btn btn-sm btn-success" onClick={(e) => this.handleSaveClick(e)} style={{margin: '0 1px'}}><span title="Save" className="octicon octicon-check" /></button>}
+                    {this.props.editMode && <button className="btn btn-sm btn-default" onClick={this.props.onEditCancelClick} style={{margin: '0 1px'}}><span title="Cancel" className="octicon octicon-circle-slash" /></button>}
                     {this.props.isSaving && <strong>Saving...</strong>}
                 </td>
             </tr>
@@ -73,7 +73,7 @@ PingRow.propTypes = {
     name: React.PropTypes.string.isRequired,
     description: React.PropTypes.string,
     tags: React.PropTypes.array.isRequired,
-    last_ping: React.PropTypes.string,
+    last_ping: React.PropTypes.string.isRequired,
     frequency: React.PropTypes.string.isRequired,
     frequency_value: React.PropTypes.number.isRequired
 }

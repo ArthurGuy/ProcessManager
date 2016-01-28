@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import {_} from 'lodash'
-import { ADD_PING, SET_PING_TAG_FILTER, FETCH_PINGS, RECEIVE_PINGS, FETCH_PINGS_FAILURE, SAVED_PING,
-    PING_SAVE_FAILED, POPULATE_PING_ADD_FORM, SET_PING_EDIT_MODE, UPDATE_PING, PING_REMOVED } from './../actions/pings'
+import { _ } from 'lodash'
 
+import { ADD_PING, SET_PING_TAG_FILTER, FETCH_PINGS, RECEIVE_PINGS, FETCH_PINGS_FAILURE, UPDATE_PING,
+    PING_SAVE_FAILED, POPULATE_PING_ADD_FORM, SET_PING_EDIT_MODE, DELETE_PING } from './../actions/pings'
+
+const initialState = {isFetching: false, filterTag:null, items:[], tags:[]}
 
 //Check over all the pings for our local id, when found replace with the new object
 function updateLocalPing(state, action) {
@@ -29,10 +31,10 @@ function extractTags(pings) {
     return tags
 }
 
-const initialState = {isFetching: false, filterTag:null, items:[], tags:[]}
+
 
 //Process changes to pings
-function pings(state = initialState, action) {
+export default function pings(state = initialState, action) {
     let nextState = {}
     switch (action.type) {
         case ADD_PING:
@@ -46,14 +48,19 @@ function pings(state = initialState, action) {
                     description: 'default description',
                     completed: false,
                     editMode: false,
-                    tags: []
+                    tags: [],
+                    active: true,
+                    error: false,
+                    frequency: 'day',
+                    frequency_value: 1,
+                    last_ping: "0000-00-00 00:00:00"
                 }
             ]
             return {isFetching: true, items: pings, tags:extractTags(pings)}
 
-        case SAVED_PING:
+        case UPDATE_PING:
             nextState = {isFetching: false}
-            //Locate our temporary object and replace with the proper one from the api
+            //Locate our existing object and replace with the new one
             nextState.items = state.items.map(t =>
                 updateLocalPing(t, action)
             )
@@ -88,6 +95,7 @@ function pings(state = initialState, action) {
 
             return Object.assign({}, state, nextState)
 
+        /*
         case UPDATE_PING:
             action.state = false;
             nextState = {isFetching: false}
@@ -97,6 +105,7 @@ function pings(state = initialState, action) {
             )
 
             return Object.assign({}, state, nextState)
+        */
 
         case SET_PING_TAG_FILTER:
             return Object.assign({}, state, {
@@ -110,7 +119,7 @@ function pings(state = initialState, action) {
 
             return Object.assign({}, state, nextState)
 
-        case PING_REMOVED:
+        case DELETE_PING:
             console.log('removing item ', action.pingId)
 
             nextState = {}
@@ -125,5 +134,3 @@ function pings(state = initialState, action) {
             return state
     }
 }
-
-export default pings

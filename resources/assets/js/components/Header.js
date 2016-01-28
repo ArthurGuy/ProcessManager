@@ -22,7 +22,7 @@ export default class Header extends Component {
     }
 
     render() {
-        const { dispatch, isFetchingPings } = this.props
+        const { dispatch, isFetchingPings, user } = this.props
         return (
             <nav className="navbar navbar-full navbar-dark bg-primary m-b-1">
 
@@ -38,16 +38,16 @@ export default class Header extends Component {
 
                         <li className="nav-item">
                             <a className="nav-link" onClick={this.handleRefreshClick}>
-                                <span title="Refresh data" className="octicon octicon-sync"></span> Reload
+                                <span title="Refresh data" className="octicon octicon-sync" /> Reload
                             </a>
                         </li>
                         <li className="nav-item nav-link">{isFetchingPings && <span>Loading data...</span>}</li>
                     </ul>
 
                     <ul className="nav navbar-nav pull-xs-right">
-                        <li className="nav-item"><span className="nav-link">Users Name</span></li>
-                        <li className="nav-item"><a className="nav-link" href="/logout"><i className="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                        <li className="nav-item"><img width="40" height="40" src="" /></li>
+                        <li className="nav-item"><span className="nav-link">{user.name}</span></li>
+                        <li className="nav-item"><a className="nav-link" href="/logout"><i className="fa fa-btn fa-sign-out" />Logout</a></li>
+                        <li className="nav-item"><img width="40" height="40" src={user.avatar} /></li>
                     </ul>
 
                 </div>
@@ -59,9 +59,9 @@ export default class Header extends Component {
 
 //the state params come from the reducers export
 function mapStateToProps(state) {
-    console.log(state);
     return {
-        isFetchingPings: state.pings.isFetching || false
+        isFetchingPings: state.pings.isFetching || false,
+        user: state.user
     }
 }
 
