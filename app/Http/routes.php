@@ -40,12 +40,7 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('/pings', 'PingController@store');
         Route::put('/pings/{id}', 'PingController@update');
         Route::delete('/pings/{id}', 'PingController@destroy');
-
-
-        Route::get('/cron', 'CronJobsController@index');
-        Route::post('/cron', 'CronJobsController@store');
-        Route::delete('/cron/{id}', 'CronJobsController@destroy');
-
+        
 
         Route::get('/contacts', 'ContactController@index');
         Route::post('/contacts', 'ContactController@store');
