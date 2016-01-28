@@ -25,7 +25,7 @@ class PingController extends Controller
     {
         sleep(2);
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255|unique:pings',
+            'name' => 'required|alpha_dash|max:255|unique:pings,name,NULL,id,deleted_at,NULL',
         ]);
 
         if ($validator->fails()) {
