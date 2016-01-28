@@ -22,31 +22,24 @@ class PingController extends Controller
 
     public function store(Request $request)
     {
-        sleep(2);
+        if ( ! $request->wantsJson()) {
+            return response("Pings can only be created via json requests", 400);
+        }
+
+        sleep(1);
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|alpha_dash|max:255|unique:pings,name,NULL,id,deleted_at,NULL',
         ]);
 
         if ($validator->fails()) {
             /** @var \Illuminate\Validation\Validator $validator */
-            if ($request->wantsJson()) {
-                return response( $validator->getMessageBag(), 422);
-            }
-            return redirect('/pings')
-                ->withInput()
-                ->withErrors($validator);
+            return response( $validator->getMessageBag(), 422);
         }
 
         $ping = Ping::createDefaultPing($request->get('name'), true, Auth::id());
 
-        if ($request->wantsJson()) {
-
-            $ping = Ping::findOrFail($ping->id);
-
-            sleep(1);
-            return $ping;
-        }
-        return redirect('/pings');
+        return Ping::findOrFail($ping->id);
     }
 
     public function update(Request $request, $id)
