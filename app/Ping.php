@@ -29,6 +29,8 @@ class Ping extends Model
         'active'           => 'boolean',
         'error'            => 'boolean',
         'frequency_value'  => 'integer',
+        'created_by'       => 'integer',
+        'updated_by'       => 'integer',
     ];
 
 

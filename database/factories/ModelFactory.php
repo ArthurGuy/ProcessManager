@@ -31,5 +31,8 @@ $factory->define(App\Ping::class, function (Faker\Generator $faker) {
         'active'          => $faker->boolean(80),
         'error'           => $faker->boolean(20),
         'last_ping'       => $faker->dateTimeBetween('-1 week', 'now'),
+        'created_by'      => 0,
+        'updated_by'      => 0,
+        'deleted_at'      => null,
     ];
 });
