@@ -25,6 +25,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('pings:update-overdue')->everyMinute();
+            $schedule->command('pings:update-overdue')->everyMinute();
     }
 }

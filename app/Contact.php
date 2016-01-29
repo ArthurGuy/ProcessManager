@@ -66,7 +66,7 @@ class Contact extends Model
      */
     private function trimArrayItems(array $tags)
     {
-        return array_map(function ($tag) {
+        return array_map(function($tag) {
             return trim($tag);
         }, $tags);
     }
