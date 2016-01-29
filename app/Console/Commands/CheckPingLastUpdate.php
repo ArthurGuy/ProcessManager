@@ -52,6 +52,6 @@ class CheckPingLastUpdate extends Command
 
         }
 
-        $this->table(['error', 'name', 'last_ping', 'frequency' ,'overdue_date', 'overdue'], $results);
+        $this->table(['error', 'name', 'last_ping', 'frequency', 'overdue_date', 'overdue'], $results);
     }
 }

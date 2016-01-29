@@ -1,7 +1,7 @@
 <?php
 
 
-Route::group(['middleware' => 'web'], function () {
+Route::group(['middleware' => 'web'], function() {
 
     Route::get('/', function() {
         return Redirect::to('/pings');
@@ -34,7 +34,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get(env('PING_URL_PREFIX') . '/{name}', 'HeartbeatController@beat')->name('ping_url');
     Route::post(env('PING_URL_PREFIX') . '/{name}', 'HeartbeatController@beat');
 
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => 'auth'], function() {
 
         Route::get('/site', 'Auth\AuthController@getUser');
 

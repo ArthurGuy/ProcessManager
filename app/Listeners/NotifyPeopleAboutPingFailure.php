@@ -40,7 +40,7 @@ class NotifyPeopleAboutPingFailure
 
             //contact the person
 
-            Mail::queue(['text' => 'emails.ping-error'], ['ping' => $event->ping], function ($message) use($contact, $event) {
+            Mail::queue(['text' => 'emails.ping-error'], ['ping' => $event->ping], function($message) use($contact, $event) {
                 $message->subject("Nothing heard from ping " . $event->ping->name);
                 $message->to($contact->email, $contact->name);
             });

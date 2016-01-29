@@ -22,7 +22,7 @@ class PingController extends Controller
 
     public function store(Request $request)
     {
-        if ( ! $request->wantsJson()) {
+        if (!$request->wantsJson()) {
             return response("Pings can only be created via json requests", 400);
         }
 
@@ -36,7 +36,7 @@ class PingController extends Controller
 
         if ($validator->fails()) {
             /** @var \Illuminate\Validation\Validator $validator */
-            return response( $validator->getMessageBag(), 422);
+            return response($validator->getMessageBag(), 422);
         }
 
         $ping = Ping::createDefaultPing($requestData['name'], true, Auth::id());
