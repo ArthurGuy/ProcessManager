@@ -10,6 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class PingFailure extends Event
 {
     use SerializesModels;
+
     /**
      * @var Ping
      */
