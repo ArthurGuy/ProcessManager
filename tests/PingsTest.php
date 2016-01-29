@@ -72,4 +72,15 @@ class PingsTest extends TestCase
         $this->seeInDatabase('pings', ['name' => 'test-ping-2', 'active' => 1]);
     }
 
+    /**
+     * @test
+     */
+    public function ping_can_be_created_from_update_request()
+    {
+        $this->get('poke/new-unknown-ping')
+            ->seeStatusCode(204);
+
+        $this->seeInDatabase('pings', ['name' => 'new-unknown-ping', 'active' => 1]);
+    }
+
 }

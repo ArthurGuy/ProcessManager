@@ -17,7 +17,7 @@ class PingController extends Controller
             return Ping::orderBy('created_at', 'asc')->get();
         }
 
-        return view('pings');
+        return view('template');
     }
 
     public function store(Request $request)

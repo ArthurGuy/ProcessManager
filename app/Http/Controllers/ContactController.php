@@ -9,15 +9,21 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('contacts', [
-            'contacts' => Contact::all()
-        ]);
+        if ($request->wantsJson()) {
+            return Contact::all();
+        }
+
+        return view('template');
     }
 
     public function store(Request $request)
     {
+        if (!$request->wantsJson()) {
+            return response("Contacts can only be created via json requests", 400);
+        }
+
         $validator = Validator::make($request->all(), [
             'name'        => 'required|max:255',
             'email'       => 'required|email|max:255',
@@ -25,9 +31,7 @@ class ContactController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('/contacts')
-                ->withInput()
-                ->withErrors($validator);
+            return response($validator->getMessageBag(), 422);
         }
 
         $contact              = new Contact;
@@ -37,13 +41,14 @@ class ContactController extends Controller
         $contact->active      = true;
         $contact->save();
 
-        return redirect('/contacts');
+        //Re-fetch so we have a full record
+        return Contact::findOrFail($contact->id);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         Contact::findOrFail($id)->delete();
 
-        return redirect('/contacts');
+        return response(null, 204);
     }
 }

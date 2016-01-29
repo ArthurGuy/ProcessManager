@@ -11,6 +11,8 @@ class HeartbeatController extends Controller
 
     public function beat($name)
     {
+        //validate name is the right format
+        
         $ping = Ping::findOrNewFromName($name);
 
         $ping->recordPingUpdate();

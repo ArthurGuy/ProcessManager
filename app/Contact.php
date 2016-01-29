@@ -15,6 +15,9 @@ class Contact extends Model
 {
     use SoftDeletes;
 
+    protected $casts = [
+        'active'           => 'boolean',
+    ];
 
     /**
      * Attributes

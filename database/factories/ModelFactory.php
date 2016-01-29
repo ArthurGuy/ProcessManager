@@ -22,6 +22,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Ping::class, function (Faker\Generator $faker) {
     $env = $faker->randomElement(['production', 'demo', 'staging', 'local']);
+
     return [
         'name'            => $faker->slug(2) . '-' . $env,
         'description'     => $faker->sentence(5),
@@ -34,5 +35,17 @@ $factory->define(App\Ping::class, function (Faker\Generator $faker) {
         'created_by'      => 0,
         'updated_by'      => 0,
         'deleted_at'      => null,
+    ];
+});
+
+$factory->define(App\Contact::class, function (Faker\Generator $faker) {
+    return [
+        'name'          => $faker->name,
+        'email'         => $faker->email,
+        'active'        => true,
+        'filter_tags'   => '',
+        'slack_channel' => '',
+        'sns_topic'     => '',
+        'deleted_at'    => null,
     ];
 });
