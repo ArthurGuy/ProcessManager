@@ -44,7 +44,7 @@ class PingsApp extends Component {
                 />
 
                 <div className="card-footer text-muted">
-                    [base-url]/[ping-name]
+                    { this.props.user.pingBaseUrl }/[ping-name]
                 </div>
 
                 <AddNewPing onAddClick={name => dispatch(savePing(name))} errorMessage={this.props.errorMessage} />
@@ -89,7 +89,8 @@ function mapStateToProps(state) {
         tags: state.pings.tags,
         filterTag: state.pings.filterTag,
         errorMessage: state.pings.errorMessage,
-        globalWarning: globalWarning
+        globalWarning: globalWarning,
+        user: state.user
     }
 }
 

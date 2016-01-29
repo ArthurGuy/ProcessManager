@@ -36,11 +36,13 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::group(['middleware' => 'auth'], function () {
 
+        Route::get('/site', 'Auth\AuthController@getUser');
+
+
         Route::get('/pings', 'PingController@index');
         Route::post('/pings', 'PingController@store');
         Route::put('/pings/{id}', 'PingController@update');
         Route::delete('/pings/{id}', 'PingController@destroy');
-        
 
         Route::get('/contacts', 'ContactController@index');
         Route::post('/contacts', 'ContactController@store');

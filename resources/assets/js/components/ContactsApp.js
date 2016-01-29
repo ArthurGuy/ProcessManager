@@ -1,14 +1,21 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
+//import { fetchContacts } from './../actions/contacts'
+
 class ContactsApp extends Component {
 
     constructor(props) {
         super(props)
     }
 
+    componentDidMount() {
+        const { dispatch } = this.props
+        //dispatch(fetchContacts());
+    }
+
     render() {
-        const { dispatch, contacts } = this.props
+        const { contacts } = this.props
         return (
             <div className="container-fluid">
 

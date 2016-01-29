@@ -37,7 +37,17 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('guest', ['except' => ['logout', 'getUser']]);
+    }
+
+    public function getUser()
+    {
+        $responseData = \Auth::user()->toArray();
+        $responseData['pingBaseUrl'] = \App\Ping::baseUrl();
+        $responseData['avatar'] = \Gravatar::get($responseData['email']);
+        unset($responseData['id']);
+        unset($responseData['updated_at']);
+        return response($responseData, 200);
     }
 
     /**
