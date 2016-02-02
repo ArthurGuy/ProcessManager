@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Alert from '../../common/components/Alert'
+import Button from '../../common/components/Button'
 
 export default class AddNewPing extends Component {
 
@@ -22,9 +23,7 @@ export default class AddNewPing extends Component {
                         </div>
                         <fieldset className="form-group">
                             <div className="col-sm-offset-3">
-                                <button className="btn btn-primary" onClick={(e) => this.handleClick(e)}>
-                                    Add
-                                </button>
+                                <Button type="primary" message="Add" onClick={(e) => this.handleClick(e)} />
                             </div>
                         </fieldset>
                     </div>
