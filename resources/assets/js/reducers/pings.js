@@ -113,11 +113,8 @@ export default function pings(state = initialState, action) {
 
         case PING_SAVE_FAILED:
             console.log('save error')
-            //console.log(action.response);
 
-            nextState = {isFetching: false, errorMessage: action.response.statusText}
-
-            return Object.assign({}, state, nextState)
+            return Object.assign({}, state, {isFetching: false, errorMessage: action.response.statusText})
 
         case DELETE_PING:
             console.log('removing item ', action.pingId)

@@ -26,7 +26,7 @@ class ContactController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name'        => 'required|max:255',
-            'email'       => 'required|email|max:255',
+            'email'       => 'required|email|max:255|unique:contacts,email,NULL,id,deleted_at,NULL',
             'filter_tags' => 'max:255',
         ]);
 
