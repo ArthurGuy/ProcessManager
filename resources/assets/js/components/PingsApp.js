@@ -5,6 +5,7 @@ import AddNewPing from './pings/AddNewPing'
 import PingTable from './pings/PingTable'
 import TagList from '../common/components/TagList'
 import Alert from '../common/components/Alert'
+import Button from '../common/components/Button'
 import {_} from 'lodash'
 
 class PingsApp extends Component {
@@ -32,7 +33,7 @@ class PingsApp extends Component {
 
                 <p>
                     {filterTag && <span>Filtering by tag: <TagList tags={[filterTag]} /></span>}
-                    {filterTag && <a onClick={tag => dispatch(filterByTag(null))}>clear</a>}
+                    {filterTag && <Button type="link" message="clear" onClick={tag => dispatch(filterByTag(null))}>clear</Button>}
                 </p>
 
                 <PingTable
