@@ -35,6 +35,11 @@ export default class AddNewPing extends Component {
     submitForm(e) {
         const node = this.refs.input
         const name = node.value.trim()
+
+        if (name === '') {
+            return
+        }
+
         this.props.onAddClick(name)
         node.value = ''
     }
@@ -44,7 +49,7 @@ export default class AddNewPing extends Component {
     }
 
     handleKeyDown(evt) {
-        if (evt.keyCode == 13 ) {
+        if (evt.keyCode == 13) {
             return this.submitForm()
         }
     }
