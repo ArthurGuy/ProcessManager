@@ -79,12 +79,13 @@ function checkForAlerts(pings) {
 function mapStateToProps(state) {
 
     let globalWarning = ''
-    if (checkForAlerts(state.pings.items)) {
+    let visablePings = selectPings(state.pings.items, state.pings.filterTag)
+    if (checkForAlerts(visablePings)) {
         globalWarning = 'One or more pings are in an error state'
     }
 
     return {
-        visiblePings: selectPings(state.pings.items, state.pings.filterTag),
+        visiblePings: visablePings,
         visibilityFilter: state.visibilityFilter,
         tags: state.pings.tags,
         filterTag: state.pings.filterTag,
