@@ -2,6 +2,8 @@
 
 define('LARAVEL_START', microtime(true));
 
+require __DIR__.'/../app/Http/helpers.php';
+
 /*
 |--------------------------------------------------------------------------
 | Register The Composer Auto Loader

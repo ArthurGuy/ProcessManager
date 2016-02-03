@@ -7,7 +7,7 @@
 
     <title>Process Manager</title>
 
-    <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+    <link href="{{ versioned_asset('build/css/app.css') }}" rel="stylesheet">
 
 </head>
 <body>
@@ -37,6 +37,6 @@
         @yield('content')
     </div>
 
-    <script src="{{ elixir('js/index.js') }}"></script>
+    <script src="{{ versioned_asset('build/js/main.js') }}"></script>
 </body>
 </html>

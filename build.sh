@@ -10,4 +10,4 @@ npm install --production
 
 
 echo 'gulp build - Building assets'
-gulp --production
+gulp production
