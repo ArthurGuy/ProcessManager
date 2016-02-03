@@ -10,7 +10,7 @@ import { fetchPings } from './actions/pings'
 import BaseApp from './components/BaseApp'
 import Header from './components/Header'
 import PingsApp from './components/PingsApp'
-import DevToolsApp from './components/DevToolsApp'
+//import DevToolsApp from './components/DevToolsApp'
 import ContactsApp from './components/ContactsApp'
 import NotFound from './components/NotFound'
 
