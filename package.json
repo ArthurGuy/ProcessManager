@@ -44,6 +44,7 @@
     "tether": "^1.1.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-paths": "^2.1.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "yargs": "^3.32.0"
   }
 }
