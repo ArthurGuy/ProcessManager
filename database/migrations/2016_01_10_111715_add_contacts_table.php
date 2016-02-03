@@ -16,8 +16,8 @@ class AddContactsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email');
-            $table->string('slack_channel');
-            $table->string('sns_topic');
+            $table->string('slack_channel')->nullable();
+            $table->string('sns_topic')->nullable();
             $table->string('filter_tags');
             $table->boolean('active');
             $table->softDeletes();

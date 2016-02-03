@@ -67,8 +67,9 @@ class ContactTest extends TestCase
      */
     public function contact_can_be_created_via_api()
     {
-        $this->json('POST', '/contacts', ['name' => 'Jane Doe', 'email' => 'jane@example.com'], ['Accept' => 'application/json'])
+        echo $this->json('POST', '/contacts', ['name' => 'Jane Doe', 'email' => 'jane@example.com', 'filter_tags' => []], ['Accept' => 'application/json'])
             ->assertResponseStatus(200);
+
         $this->seeInDatabase('contacts', ['name' => 'Jane Doe', 'active' => 1]);
     }
 

@@ -24,7 +24,9 @@ class ContactController extends Controller
             return response("Contacts can only be created via json requests", 400);
         }
 
-        $validator = Validator::make($request->all(), [
+        $requestData = $request->all();
+
+        $validator = Validator::make($requestData, [
             'name'        => 'required|max:255',
             'email'       => 'required|email|max:255|unique:contacts,email,NULL,id,deleted_at,NULL',
             'filter_tags' => 'max:255',
@@ -35,9 +37,9 @@ class ContactController extends Controller
         }
 
         $contact              = new Contact;
-        $contact->name        = $request->get('name');
-        $contact->email       = $request->get('email');
-        $contact->filter_tags = $request->get('filter_tags');
+        $contact->name        = $requestData['name'];
+        $contact->email       = $requestData['email'];
+        $contact->filter_tags = $requestData['filter_tags'];
         $contact->active      = true;
         $contact->save();
 
