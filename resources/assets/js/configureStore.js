@@ -2,7 +2,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import pingsReducer from './reducers/pings';
 import contactsReducer from './reducers/contacts';
 import userReducer from './reducers/user';
-import DevToolsApp from './components/DevToolsApp';
+//import DevToolsApp from './components/DevToolsApp';
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
 import { syncHistory, routeReducer } from 'react-router-redux'
@@ -26,7 +26,7 @@ const finalCreateStore = compose(
     //Setup existing middlewares
     applyMiddleware(thunkMiddleware, loggerMiddleware, reduxRouterMiddleware),
     //Apply the devtools - NOT IN PRODUCTION!
-    DevToolsApp.instrument()
+    //DevToolsApp.instrument()
 )(createStore);
 
 
