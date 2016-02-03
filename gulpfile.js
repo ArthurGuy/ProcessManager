@@ -65,10 +65,13 @@ var sassSources = [
 
 gulp.task('sass', function() {
     return gulp.src(sassSources)
+        .pipe(plumber({
+            errorHandler: onError
+        }))
         .pipe(sass())
         .pipe(concat('app.css'))
         .pipe(gulp.dest('public/build/css/'))
-        .pipe(notify("Sass build complete"));
+        .pipe(gulpIf(!productionBuild, notify("Sass build complete")));
 });
 
 
@@ -91,7 +94,7 @@ gulp.task('browserify', function() {
         .pipe(source('main.js'))
         // saves it the public/js/ directory
         .pipe(gulp.dest('./public/build/js/'))
-        .pipe(notify("Browserify complete"));
+        .pipe(gulpIf(!productionBuild, notify("Browserify complete")));
 })
 
 
@@ -108,8 +111,11 @@ var fontSources = [
 ];
 gulp.task('fonts', function() {
     return gulp.src(fontSources)
+        .pipe(plumber({
+            errorHandler: onError
+        }))
         .pipe(gulp.dest('public/fonts/'))
-        .pipe(notify("Fonts copied"));
+        .pipe(gulpIf(!productionBuild, notify("Fonts copied")));
 });
 
 
