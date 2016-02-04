@@ -1,5 +1,8 @@
 set -e
 
+echo 'Creating the test sqlite db'
+touch storage/app/database.sqlite
+
 
 echo 'Running PHPUnit tests'
 vendor/bin/phpunit -c phpunit.xml --log-junit=junit.xml
