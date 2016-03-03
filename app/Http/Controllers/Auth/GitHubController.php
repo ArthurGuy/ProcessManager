@@ -69,7 +69,7 @@ class GitHubController extends Controller
             $contact->active      = true;
             $contact->save();
         }
-        Auth::login($user);
+        Auth::login($user, true);
         return redirect('/pings');
     }
 }
