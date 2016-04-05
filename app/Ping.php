@@ -34,6 +34,18 @@ class Ping extends Model
         'updated_by'       => 'integer',
     ];
 
+    /**
+     * Override the eloquent date to string formatting method to ensure a correctly formatted date is returned.
+     *
+     * @param \DateTime $date
+     *
+     * @return string
+     */
+    protected function serializeDate(\DateTime $date)
+    {
+        return $date->format('c');
+    }
+
 
     /**
      * Attributes
@@ -57,15 +69,6 @@ class Ping extends Model
         } else {
             $this->attributes['tags'] = trim($tags);
         }
-    }
-
-    public function getLastPingAttribute()
-    {
-        if ($this->attributes['last_ping'] == '0000-00-00') {
-            return null;
-        }
-
-        return $this->attributes['last_ping'];
     }
 
     public function getPingUrlAttribute()

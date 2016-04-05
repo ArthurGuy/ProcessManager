@@ -3,7 +3,7 @@ import {FormattedRelative, injectIntl} from 'react-intl';
 
 const TimeAgo = ({date, intl}) => {
 
-    if (date == '0000-00-00 00:00:00') {
+    if (date == null) {
         return (<span>-</span>)
     }
 
