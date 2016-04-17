@@ -107,12 +107,13 @@ class Ping extends Model
 
     /**
      * This this ping overdue?
+     * Include a 5 minute grace period
      *
      * @return bool
      */
     public function getOverdueAttribute()
     {
-        return ($this->overdue_date->lt(new Carbon()));
+        return ($this->overdue_date->lt(new Carbon()->subMinutes(5)));
     }
 
 
