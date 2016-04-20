@@ -113,7 +113,7 @@ class Ping extends Model
      */
     public function getOverdueAttribute()
     {
-        return ($this->overdue_date->lt(new Carbon()->subMinutes(5)));
+        return ($this->overdue_date->lt((new Carbon())->subMinutes(5)));
     }
 
 
