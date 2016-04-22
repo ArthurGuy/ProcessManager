@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int    frequency_value
  * @property string frequency
  * @property Carbon overdueDate
+ * @property Carbon overdue_date
  */
 class Ping extends Model
 {
